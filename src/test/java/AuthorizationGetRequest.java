@@ -23,18 +23,18 @@ public class AuthorizationGetRequest extends BasePage{
 	private static ResponseSpecification responseSpec;
 	
 	
-	@BeforeClass
-	public void baseUri() throws IOException{
-		List<String> Uri=getRequest();
-		
-		
-		requestSpec = new RequestSpecBuilder().setBaseUri(
-				Uri.get(0)).build();
-
-		responseSpec = new ResponseSpecBuilder().expectStatusCode(200)
-				.expectContentType(ContentType.JSON).build();
-		autheticationBasics(Uri.get(1),Uri.get(2));
-	}
+//	@BeforeClass
+//	public void baseUri() throws IOException{
+//		List<String> Uri=getRequest();
+//		
+//		
+//		requestSpec = new RequestSpecBuilder().setBaseUri(
+//				Uri.get(0)).build();
+//
+//		responseSpec = new ResponseSpecBuilder().expectStatusCode(200)
+//				.expectContentType(ContentType.JSON).build();
+//		autheticationBasics(Uri.get(1),Uri.get(2));
+//	}
 
 	@Test
 	public void autheticationBasics(String Username,String password){

@@ -16,26 +16,15 @@ import com.myrestassured.basepage.BasePage;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class ParameterizedGetRequest extends BasePage{
-
-	private static RequestSpecification requestSpec;
-	private static ResponseSpecification responseSpec;
+public class ParameterizedGetRequest extends BasePage {
 
 	@BeforeClass
 	public static void createRequestSpecificatio() throws IOException {
-		
-		List<String> Uri=getRequest();
-		
-			requestSpec = new RequestSpecBuilder().setBaseUri(
-					Uri.get(0)).build();
-	
-		responseSpec = new ResponseSpecBuilder().expectStatusCode(200)
-				.expectContentType(ContentType.JSON).build();
-
+		inIt();
 	}
 
 	@DataProvider(name = "zipcode")
-	public static Object[][] zipCodesAndPlaces() {
+	public  Object[][] zipCodesAndPlaces() {
 
 		return new Object[][] {
 
@@ -46,13 +35,12 @@ public class ParameterizedGetRequest extends BasePage{
 
 	@Test(dataProvider = "zipcode")
 	public void requestZipCodeCollection_checkPlaceNameInResponseBody_expectPlaceName(
-			String... params) {
+			String state,String zipcode,String placeName) {
 
-		given().spec(requestSpec).pathParam("countryCode", params[0])
-				.pathParam("zipCode", params[1]).when()
+		given().spec(requestSpec).pathParam("countryCode", state)
+				.pathParam("zipCode", zipcode).when()
 				.get("{countryCode}/{zipCode}").then().spec(responseSpec).and()
-				.body("places[0].'place name'", equalTo(params[2])).log().all();
+				.body("places[0].'place name'", equalTo(placeName)).log().all();
 	}
-	
 
 }
